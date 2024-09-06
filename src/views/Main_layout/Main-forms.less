@@ -1,0 +1,350 @@
+#body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+ .el-header{
+    background-color: transparent;
+    color: transparent;
+    text-align: center;
+    line-height: 45px;
+    height: 45px;
+  }
+  
+  .el-aside {
+    position: relative;
+    background-color:transparent;
+    color: aliceblue;
+    text-align: center;
+    line-height: 100%;
+    padding-right: 135px;
+    overflow-x: hidden; // 去除水平滚动条
+  }
+  
+  .el-main {
+    background-color: transparent;
+    color: #333;
+    text-align: center;
+    line-height: 100%;
+    height: 100%;
+  }
+  body > .el-container {
+    margin-bottom: 40px;
+  }
+  .el-container {   
+    height: 100%;    
+    width: 100%;
+  }
+  
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+  
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+
+  .el-menu-demo{
+    position: absolute;
+    right: 0px;
+    width: 100%;
+    display: flex;
+    background-color:transparent;
+    height: 45px;
+    // justify-content:left
+  }
+  .menu-item-1{
+    position: absolute;
+    width: 70px;
+    left: 400px;
+  }
+
+  .menu-item-2{
+    position: absolute;
+    left: 470px;
+    width: 80px;
+  }
+
+  .menu-item-3{
+    position: absolute;
+    left: 550px;
+    width: 80px;
+  }
+
+  .menu-item-4{
+    position: absolute;
+    left: 630px;
+    width: 80px;
+  }
+
+  .menu-item-5{
+    position: absolute;
+    left: 710px;
+    width: 80px;
+  }
+
+  .menu-item-6{
+    position: absolute;
+    width: 70px;
+    left: 332px;
+  }
+  
+
+  .div-button-1{
+    position: absolute;
+    width: 30%;
+    left: 980px;
+  }
+  .button-1{
+    position: absolute;
+    top: 6px;
+    left: 40px;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+  }
+  .input-find{
+    position: absolute;
+    height: 32px;
+    width: 40%;
+    right: 230px;
+    top: 6px;
+    color: #333;
+  }
+  .button-2{
+    position: absolute;
+    height: 32px;
+    // width: 45px;
+    padding: 8px;
+    right: 169px;
+    top: 6px;
+    
+  }
+  .row-menu{    
+    background-color: transparent;
+    left: 38%;
+    width: 100px;
+    height: 100%;
+    color:mediumaquamarine;
+  }
+  .el-menu-vertical-demo{
+    right: 40px;
+    width: 175px;
+    background-color: transparent;
+    height: 100%;
+    border: 0!important;
+  }
+  .div-button-2{
+    position: absolute;
+    width: 180px;
+    right: 0px;
+  }
+  .button-3{
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 25px;
+    border: 0;
+    color:maroon;
+  }
+  //按钮触碰后的状态
+  .button-3:hover {
+    background-color: transparent; /* 更改为你想要的颜色 */
+    color: maroon;
+  }
+
+
+  .button-4{
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 30px;
+    color:moccasin;
+    border: 0;
+    // padding: 10px 20px;
+    transition: transform 0.5s;/* 图标放大动画 */
+    
+  } 
+   //按钮选中后的背景色
+  .button-4:hover {
+    background-color: transparent; /* 更改为你想要的颜色 */
+    transform: scale(1.6); /* 图标放大动画 */
+  }
+  //图标选中后的背景色
+  .button-4:hover .el-icon{
+    color:beige;
+  }
+  .div-button-3{
+    position: absolute;
+    width: 260px;
+    right: 220px;
+  }
+  .homepage-button{
+    // padding: 30px;
+    left: 0px;
+    align-items: right;
+  }
+
+  .div-button-4{
+    position: absolute;
+    left: 200px;
+  }
+
+  .button-5{
+    position: absolute;
+    right: 55px;
+    width: 108px;
+    height: 58.5px;
+    background-image: url('@/assets/Photo/logo1.png');
+    background-size: cover; /* 背景图片自适应按钮大小 */
+    background-position: center; /* 背景图片居中 */
+    border: none;
+    background-color: transparent;
+    display: none;
+  }
+
+  //按钮选中后的背景色
+  .button-5:hover {
+    background-color: transparent; /* 更改为你想要的颜色 */
+  }
+
+  .div-button-5{
+    position: absolute;
+    right: 266px;
+  }
+
+  .div-button-6{
+    position: absolute;
+    width: 180px;
+    right: 130px;
+  }
+  .button-6{
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 30px;
+    color:midnightblue;
+    border: 0;
+  }
+  .button-6:hover {
+    background-color: transparent; /* 更改为你想要的颜色 */
+  }
+  .button-6:hover .el-icon{
+    color:salmon;
+  }
+  
+
+  .div-button-7{
+    position: absolute;
+    width: 80px;
+    right: 0px;
+  }
+  .button-7{
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 30px;
+    color:darkslategray;
+    border: 0;
+  }
+  .button-7:hover {
+    background-color: transparent; /* 更改为你想要的颜色 */
+  }
+
+  .left-label-1{
+    position:relative;
+    left: 30px;
+  }
+  .left-icon-1{
+    position:relative;
+  left: 30px;
+  }
+
+  .left-label-2{
+    position:relative;
+    left: 30px;
+  }
+  .left-icon-2{
+    position:relative;
+    left: 30px;
+  }
+
+  .left-label-3{
+    position:relative;
+    left: 30px;
+  }
+  .left-icon-3{
+    position:relative;
+    left: 30px;
+  }
+
+  .left-label-4{
+    position:relative;
+    left: 30px;
+  }
+  .left-icon-4{
+    position:relative;
+    left: 30px;
+  }
+
+  .title-icon-1{
+    position: relative;
+    right: 30px;
+  }
+  .title-label-1{
+    position: relative;
+    left: 20px;
+  }
+
+  .title-label-2{
+    position: relative;
+    left: 24px;
+  }
+  .title-icon-2{
+    position: relative;
+    right: 23px;
+  }
+  
+  .title-label-3{
+    position: relative;
+    left: 24px;
+  }
+  .title-icon-3{
+    position: relative;
+    right: 40px;
+  }
+
+  .title-label-4{
+    position: relative;
+    left: 24px;
+  }
+  .title-icon-4{
+    position: relative;
+    right: 40px;
+  }
+  
+  .title-label-5{
+    position: relative;
+    left: 24px;
+  }
+  .title-icon-5{
+    position: relative;
+    right: 40px;
+  }
+
+  .title-label-6{
+    position: relative;
+    left: 24px;
+  }
+  .title-icon-6{
+    position: relative;
+    right: 40px;
+  }

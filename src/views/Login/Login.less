@@ -1,0 +1,107 @@
+#body{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    // background-color: aqua;
+    background-image: url(@/assets/Photo/bgimg-2.jpg);
+    background-size: 100% 100%;
+    justify-content: center; // flex主轴对齐方式
+    align-items: center;
+    display: flex;
+    font-family: "Montserrat", sans-serif;//引用字体
+    font-size: 22px;
+    // text-align: center;
+
+}
+
+
+
+  
+.main {
+    position: relative;
+    width: 420px;
+    min-width: 420px;
+    min-height: 350px;
+    height: 350px;
+    padding: 25px;
+    background-color: #e7edf1;
+    box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 0.86; //透明度
+    
+    .title{
+        position:relative;
+        text-align: center;
+        top: 20px;
+    }
+    .button_control{
+        position: relative;
+        text-align: center;
+        top: 40px;
+    }
+    .input-1{
+        position: relative;
+        text-align: center;
+        top: 60px; 
+    }
+    .input-2{
+        position: relative;
+        text-align: center;
+        top: 80px; 
+    }
+    .button-forget{
+        position: relative;
+        top: 85px; 
+        left: 96px;
+        .forget_password:hover{
+            background-color: transparent;
+            color: #000;
+        }
+        .el-checkbox:hover{
+            color:#000;
+        }
+        /deep/ .el-checkbox__input.is-checked .el-checkbox__inner{ //checkbox选中后box背景色
+            background-color: #553f6ed8;
+            border-color: #553f6ed8;
+        }
+        /deep/ .el-checkbox__input.is-checked+.el-checkbox__label{ //checkbox选中后label文字背景色
+           color: #553f6ed8;
+        }
+        // /deep/ .el-checkbox__label{ //checkbox未选中后label文字背景色
+        //     color: red;
+        // }
+    }
+    .button-login{
+        position: relative;
+        top: 105px; 
+        left: 100px;
+        .login{
+            background-color: #59afe9;
+            border: none;
+        }
+        .login:hover{
+            background-color: #458fff;
+        }
+    }
+  }
+  @media (max-width: 1200px) {
+    .main {
+      transform: scale(0.7);
+    }
+  }
+  @media (max-width: 1000px) {
+    .main {
+      transform: scale(0.6);
+    }
+  }
+  @media (max-width: 800px) {
+    .main {
+      transform: scale(0.5);
+    }
+  }
+  @media (max-width: 600px) {
+    .main {
+      transform: scale(0.4);
+    }
+  }
