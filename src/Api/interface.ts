@@ -1,16 +1,16 @@
-import request from './request'
+import request from '../Api/request'
 
 //定义接口数据 export导出数据
-export const getLogin = params=>request({
+export const getLogin = (params: any)=>request({
     method:'GET',
     url:'/login',
     params
 })
 
-export const BasicInf =params=>request({
+export const BasicInf = (params: any)=>request({
     method:'GET',
     url:'/dj_api/basic',
-    responseType:'用户名',
     params
 })
+
 

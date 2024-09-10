@@ -25,4 +25,3 @@ app.use(router).use(ElementPlus).use(axios).mount('#main')
 Object.keys(Icons).forEach(key => {  
     app.component(key, Icons[key]);  
   });  
-

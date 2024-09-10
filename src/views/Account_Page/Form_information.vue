@@ -44,11 +44,7 @@
         style="display: none"
         ref="FileInput"
       /><!--文件类型用于上传图片-->
-      <input
-        type="text"
-        class="User_input"
-        :disabled="InputVerify"
-      />
+      <input type="text" class="User_input" :disabled="InputVerify" />
       <input type="text" class="User_input1" :disabled="InputVerify" />
     </div>
     <div class="right">
@@ -71,7 +67,7 @@
 </template>
 
 <script>
-import { ref, reactive,onMounted, toRef } from "vue";
+import { ref, reactive, onMounted } from "vue";
 // import { BasicInfApi } from "@/Api";
 import axios from "axios";
 
@@ -82,24 +78,26 @@ export default {
   setup() {
     //变量定义  変数定義
     const state = reactive({
-      lists:[],
+      lists: [],
     });
-    const User_Picture = new URL('@/assets/Photo/picture1.jpg',import.meta.url).href
+    const User_Picture = new URL("@/assets/Photo/picture1.jpg", import.meta.url).href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
 
     let base_url = "http://127.0.0.1:8000/api/dj_api/";
-    const getlyb = ()=>{
-      axios.get(base_url).then(res=>{
-        state.lists = res.data;
-      }).catch(err=>{
-        console.log(err)
-      })
-    }
-    onMounted(()=>{
+    const getlyb = () => {
+      axios
+        .get(base_url)
+        .then((res) => {
+          state.lists = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    onMounted(() => {
       getlyb();
-    })
-
+    });
 
     //Picture更改事件  Picture変更イベント
     const Picture_Exchange = () => {
@@ -130,7 +128,7 @@ export default {
       FileInput,
       InputVerify,
       infEdit,
-      ...toRef(state)
+
     };
   },
 };

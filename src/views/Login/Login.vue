@@ -99,7 +99,6 @@ import { useRouter } from "vue-router";
 
 import { getLoginApi } from "@/Api";
 
-
 export default {
   date() {
     return {};
@@ -127,23 +126,27 @@ export default {
 
     //登录事件  ログインイベント
     const enterLogin = async () => {
-      try{
-      const res = await getLoginApi({Username:Account_inf.Username,password:Account_inf.password})
-      let flag = res.data.msg;
-      if (flag == "OK") {
-        ElMessage({
-          message: "login success",
-          type: "success",
+      try {
+        const res = await getLoginApi({
+          Username: Account_inf.Username,
+          password: Account_inf.password,
         });
-        router.push("/HomePage");
-      } else {
-        ElMessage({
-          message: "login fail, please try again",
-          type: "warning",
-        });
-      }
-      console.log("res message is ", res.data);
-      }catch(error){
+
+        let flag = res.data.msg;
+        if (flag == "OK") {
+          ElMessage({
+            message: "login success",
+            type: "success",
+          });
+          router.push("/HomePage");
+        } else {
+          ElMessage({
+            message: "login fail, please try again",
+            type: "warning",
+          });
+        }
+        console.log("res message is ", res.data);
+      } catch (error) {
         console.error(error);
       }
     };
