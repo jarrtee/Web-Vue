@@ -93,32 +93,8 @@ export default {
     const InputVerify = ref(true);
 
     const getlyb = async() => {
-      // axios
-      //   .get(BasicInfApi({UserNum:'GD1233'}))
-      //   .then(function (response) {
-      //     // 处理成功情况
-      //     GetData.value = response.data
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     // 处理错误情况
-      //     console.log(error);
-      //   })
-      //   .finally(function () {
-      //     // 总是会执行
-      //   });
-      // axios
-      //   .post("http://127.0.0.1:8000/basicdata/", {
-      //     UserNum:'GD1233',
-      //   })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-
-      await request.post('basicdata/?UserNum=GD1233').then(
+      
+      await BasicInfApi({UserNum:'GD1233'}).then(
         function(res){
           // 处理成功情况
           GetData.BasicName = res.data[0].fields.UserName
