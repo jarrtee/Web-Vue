@@ -68,7 +68,7 @@
 
 <script>
 import { ref, reactive, onMounted } from "vue";
-// import { BasicInfApi } from "@/Api";
+import { BasicInfApi } from "@/Api";
 import axios from "axios";
 
 export default {
@@ -80,21 +80,29 @@ export default {
     const state = reactive({
       lists: [],
     });
-    const User_Picture = new URL("@/assets/Photo/picture1.jpg", import.meta.url).href; // TS 创建URL
+    const User_Picture = new URL("@/assets/Photo/picture1.jpg", import.meta.url)
+      .href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
 
-    let base_url = "http://127.0.0.1:8000/api/dj_api/";
+    // let base_url = "http://127.0.0.1:8000/api/dj_api/";
     const getlyb = () => {
       axios
-        .get(base_url)
-        .then((res) => {
-          state.lists = res.data;
+        .get(BasicInfApi)
+        .then(function (response) {
+          // 处理成功情况
+          console.log(response);
+          console.log('1')
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(function (error) {
+          // 处理错误情况
+          console.log(error);
+        })
+        .finally(function () {
+          // 总是会执行
         });
     };
+
     onMounted(() => {
       getlyb();
     });
@@ -128,7 +136,6 @@ export default {
       FileInput,
       InputVerify,
       infEdit,
-
     };
   },
 };

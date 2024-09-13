@@ -9,7 +9,7 @@ export const getLogin = (params: any)=>request({
 
 export const BasicInf = (params: any)=>request({
     method:'GET',
-    url:'/dj_api/basic',
+    url:'/basicdata',
     params
 })
 
