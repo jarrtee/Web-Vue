@@ -44,8 +44,13 @@
         style="display: none"
         ref="FileInput"
       /><!--文件类型用于上传图片-->
-      <input type="text" class="User_input" :disabled="InputVerify" />
-      <input type="text" class="User_input1" :disabled="InputVerify" />
+      <input
+        type="text"
+        class="User_input"
+        :disabled="InputVerify"
+        :value="GetData.BasicName"
+      />
+      <input type="text" class="User_input1" :disabled="InputVerify" :value="GetData.BasicNum"/>
     </div>
     <div class="right">
       <el-button
@@ -67,9 +72,10 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { BasicInfApi } from "@/Api";
 import axios from "axios";
+import request from "@/Api/request";
 
 export default {
   date() {
@@ -77,30 +83,55 @@ export default {
   },
   setup() {
     //变量定义  変数定義
-    const state = reactive({
-      lists: [],
-    });
+    const GetData = reactive({
+      BasicName : null,
+      BasicNum : null,
+    })
     const User_Picture = new URL("@/assets/Photo/picture1.jpg", import.meta.url)
       .href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
 
-    // let base_url = "http://127.0.0.1:8000/api/dj_api/";
-    const getlyb = () => {
-      axios
-        .get(BasicInfApi)
-        .then(function (response) {
+    const getlyb = async() => {
+      // axios
+      //   .get(BasicInfApi({UserNum:'GD1233'}))
+      //   .then(function (response) {
+      //     // 处理成功情况
+      //     GetData.value = response.data
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     // 处理错误情况
+      //     console.log(error);
+      //   })
+      //   .finally(function () {
+      //     // 总是会执行
+      //   });
+      // axios
+      //   .post("http://127.0.0.1:8000/basicdata/", {
+      //     UserNum:'GD1233',
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+      await request.post('basicdata/?UserNum=GD1233').then(
+        function(res){
           // 处理成功情况
-          console.log(response);
-          console.log('1')
-        })
-        .catch(function (error) {
+          GetData.BasicName = res.data[0].fields.UserName
+          GetData.BasicNum = res.data[0].fields.UserNum
+          console.log(res)
+        }).catch(function (error) {
           // 处理错误情况
           console.log(error);
         })
         .finally(function () {
           // 总是会执行
         });
+
     };
 
     onMounted(() => {
@@ -129,13 +160,13 @@ export default {
     };
 
     return {
-      state,
       User_Picture,
       Picture_Exchange,
       handleImageChange,
       FileInput,
       InputVerify,
       infEdit,
+      GetData,
     };
   },
 };

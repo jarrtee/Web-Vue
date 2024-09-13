@@ -7,10 +7,10 @@ export const getLogin = (params: any)=>request({
     params
 })
 
-export const BasicInf = (params: any)=>request({
-    method:'GET',
-    url:'/basicdata',
-    params
+export const BasicInf = (data: any)=>request({
+    method:'post',
+    url:'/basicdata/',
+    data
 })
 
 

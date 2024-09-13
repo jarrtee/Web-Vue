@@ -3,6 +3,8 @@ import  { type InternalAxiosRequestConfig } from 'axios';
 
 const request = axios.create({
     baseURL:'http://127.0.0.1:8000',    
+    //headers:{Accept:'application/json'},
+    responseType: 'json',
 })
 
 // 添加请求拦截器
