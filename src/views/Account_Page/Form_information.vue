@@ -23,7 +23,7 @@
       </el-form-item>
     </div>
     <div class="middle">
-      <img :src="User_Picture" class="Picture_User" />
+      <img :src="GetData.UserPicture" class="Picture_User" />
       <el-button
         @click="Picture_Exchange"
         plain
@@ -50,7 +50,12 @@
         :disabled="InputVerify"
         :value="GetData.BasicName"
       />
-      <input type="text" class="User_input1" :disabled="InputVerify" :value="GetData.BasicNum"/>
+      <input
+        type="text"
+        class="User_input1"
+        :disabled="InputVerify"
+        :value="GetData.BasicNum"
+      />
     </div>
     <div class="right">
       <el-button
@@ -74,8 +79,6 @@
 <script>
 import { ref, onMounted, reactive } from "vue";
 import { BasicInfApi } from "@/Api";
-import axios from "axios";
-import request from "@/Api/request";
 
 export default {
   date() {
@@ -84,34 +87,56 @@ export default {
   setup() {
     //变量定义  変数定義
     const GetData = reactive({
-      BasicName : null,
-      BasicNum : null,
-    })
-    const User_Picture = new URL("@/assets/Photo/picture1.jpg", import.meta.url)
-      .href; // TS 创建URL
+      BasicName: null,
+      BasicNum: null,
+      UserPicture: null,
+    });
+    // const User_Picture = new URL("@/assets/Photo/picture2.jpg", import.meta.url).href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
 
-    const getlyb = async() => {
-      
-      await BasicInfApi({UserNum:'GD1233'}).then(
-        function(res){
+    //获取后端用户的基本信息
+    const getlyb = async () => {
+      //接收后端数据
+      await BasicInfApi({ UserNum: "GD1233" })
+        .then(function (res) {
           // 处理成功情况
-          GetData.BasicName = res.data[0].fields.UserName
-          GetData.BasicNum = res.data[0].fields.UserNum
-          console.log(res)
-        }).catch(function (error) {
+          GetData.BasicName = res.data[0].fields.UserName;
+          GetData.BasicNum = res.data[0].fields.UserNum;
+          //BLOB二进制转换为URL地址
+          let PhotoURL = URL.createObjectURL(
+            new Blob([res.data[0].fields.UserNum])
+          );
+          GetData.UserPicture = PhotoURL;
+          console.log(res);
+          console.log(GetData.UserPicture);
+        })
+        .catch(function (error) {
           // 处理错误情况
           console.log(error);
         })
         .finally(function () {
           // 总是会执行
         });
+    };
 
+    const downloadFile = async () => {
+      const response = await fetch("./assets/Photo/picture2.jpg");
+      const blob = await response.blob();
+      GetData.UserPicture = URL.createObjectURL(blob);
+
+      const newWindow = window.open();
+      if (newWindow) {
+        newWindow.location.href = GetData.UserPicture;
+      } else {
+        // 处理新窗口被阻止打开的情况
+        URL.revokeObjectURL(GetData.UserPicture);
+      }
     };
 
     onMounted(() => {
       getlyb();
+      downloadFile();
     });
 
     //Picture更改事件  Picture変更イベント
@@ -126,7 +151,7 @@ export default {
       }
       const reader = new FileReader();
       reader.onload = (e) => {
-        User_Picture.value = e.target.result;
+        GetData.UserPicture = e.target.result;
       };
       reader.readAsDataURL(file);
     };
@@ -136,7 +161,6 @@ export default {
     };
 
     return {
-      User_Picture,
       Picture_Exchange,
       handleImageChange,
       FileInput,
