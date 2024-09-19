@@ -13,4 +13,9 @@ export const BasicInf = (params: any)=>request({
     params
 })
 
-
+export const BasicPhoto = (params: any)=>request({
+    method:'post',
+    url:'/basicphoto/',
+    responseType:'blob',
+    params
+})

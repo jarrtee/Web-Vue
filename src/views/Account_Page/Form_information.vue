@@ -23,7 +23,7 @@
       </el-form-item>
     </div>
     <div class="middle">
-      <img :src="GetData.UserPicture" class="Picture_User" />
+      <img :src="GetData.UserPicture"  class="Picture_User" />
       <el-button
         @click="Picture_Exchange"
         plain
@@ -78,7 +78,7 @@
 
 <script>
 import { ref, onMounted, reactive } from "vue";
-import { BasicInfApi } from "@/Api";
+import { BasicInfApi, BasicPhotoApi } from "@/Api";
 
 export default {
   date() {
@@ -97,19 +97,12 @@ export default {
 
     //获取后端用户的基本信息
     const getlyb = async () => {
-      //接收后端数据
-      await BasicInfApi({ UserNum: "GD1233" })
+      //接收后端基础信息数据
+      await BasicInfApi({ UserNum: "GD1122" })
         .then(function (res) {
           // 处理成功情况
           GetData.BasicName = res.data[0].fields.UserName;
           GetData.BasicNum = res.data[0].fields.UserNum;
-          //BLOB二进制转换为URL地址
-          let PhotoURL = URL.createObjectURL(
-            new Blob([res.data[0].fields.UserNum])
-          );
-          GetData.UserPicture = PhotoURL;
-          console.log(res);
-          console.log(GetData.UserPicture);
         })
         .catch(function (error) {
           // 处理错误情况
@@ -118,25 +111,19 @@ export default {
         .finally(function () {
           // 总是会执行
         });
+      //获取后端头像数据
+      await BasicPhotoApi({ UserNum: "GD1122" }).then((res) => {
+        //BLOB二进制转换为URL地址
+        GetData.UserPicture = URL.createObjectURL(new Blob([res.data]),{type:'image/jpeg'});
+        console.log(GetData.UserPicture)
+      });
+
     };
 
-    const downloadFile = async () => {
-      const response = await fetch("./assets/Photo/picture2.jpg");
-      const blob = await response.blob();
-      GetData.UserPicture = URL.createObjectURL(blob);
-
-      const newWindow = window.open();
-      if (newWindow) {
-        newWindow.location.href = GetData.UserPicture;
-      } else {
-        // 处理新窗口被阻止打开的情况
-        URL.revokeObjectURL(GetData.UserPicture);
-      }
-    };
+    // const getphoto = () => {
 
     onMounted(() => {
       getlyb();
-      downloadFile();
     });
 
     //Picture更改事件  Picture変更イベント
