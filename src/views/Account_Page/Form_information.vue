@@ -48,14 +48,17 @@
         type="text"
         class="User_input"
         :disabled="InputVerify"
-        :value="GetData.BasicName"
+        v-model="GetData.BasicName"
       />
       <input
         type="text"
         class="User_input1"
         :disabled="InputVerify"
-        :value="GetData.BasicNum"
+        v-model="GetData.BasicNum"
       />
+      <el-button v-if="!InputVerify" @click="UpdateDataButton" style="top: 340px;position: relative;left: 100px;">
+        <strong>保存</strong>
+        </el-button>
     </div>
     <div class="right">
       <el-button
@@ -78,7 +81,7 @@
 
 <script>
 import { ref, onMounted, reactive } from "vue";
-import { BasicInfApi, BasicPhotoApi } from "@/Api";
+import { BasicInfApi, BasicPhotoApi,UpdateBasicDataApi } from "@/Api";
 
 export default {
   date() {
@@ -89,11 +92,11 @@ export default {
     const GetData = reactive({
       BasicName: null,
       BasicNum: null,
-      UserPicture: null,
     });
     // const User_Picture = new URL("@/assets/Photo/picture2.jpg", import.meta.url).href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
+    const UserNameValue = ref('');
 
     //获取后端用户的基本信息
     const getlyb = async () => {
@@ -115,12 +118,9 @@ export default {
       await BasicPhotoApi({ UserNum: "GD1122" }).then((res) => {
         //BLOB二进制转换为URL地址
         GetData.UserPicture = URL.createObjectURL(new Blob([res.data]),{type:'image/jpeg'});
-        console.log(GetData.UserPicture)
       });
 
     };
-
-    // const getphoto = () => {
 
     onMounted(() => {
       getlyb();
@@ -147,6 +147,16 @@ export default {
       InputVerify.value = !InputVerify.value;
     };
 
+    //保存按钮事件
+    const UpdateDataButton=async()=>{
+      await UpdateBasicDataApi({UserName:GetData.BasicName,UserNum:'GD1122'}).then(function(res){
+        InputVerify.value = !InputVerify.value;
+        console.log(res)
+      }).catch(function(error){
+        console.log(error)
+      })
+    };
+
     return {
       Picture_Exchange,
       handleImageChange,
@@ -154,6 +164,7 @@ export default {
       InputVerify,
       infEdit,
       GetData,
+      UpdateDataButton,
     };
   },
 };
