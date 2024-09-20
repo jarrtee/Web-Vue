@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, inject } from "vue";
 import { BasicInfApi, BasicPhotoApi,UpdateBasicDataApi } from "@/Api";
 
 export default {
@@ -96,12 +96,12 @@ export default {
     // const User_Picture = new URL("@/assets/Photo/picture2.jpg", import.meta.url).href; // TS 创建URL
     const FileInput = ref(null);
     const InputVerify = ref(true);
-    const UserNameValue = ref('');
+    const getUserNum = inject('getUserNum')
 
     //获取后端用户的基本信息
     const getlyb = async () => {
       //接收后端基础信息数据
-      await BasicInfApi({ UserNum: "GD1122" })
+      await BasicInfApi({ UserNum: getUserNum})
         .then(function (res) {
           // 处理成功情况
           GetData.BasicName = res.data[0].fields.UserName;
@@ -115,7 +115,7 @@ export default {
           // 总是会执行
         });
       //获取后端头像数据
-      await BasicPhotoApi({ UserNum: "GD1122" }).then((res) => {
+      await BasicPhotoApi({ UserNum:getUserNum}).then((res) => {
         //BLOB二进制转换为URL地址
         GetData.UserPicture = URL.createObjectURL(new Blob([res.data]),{type:'image/jpeg'});
       });
@@ -149,7 +149,7 @@ export default {
 
     //保存按钮事件
     const UpdateDataButton=async()=>{
-      await UpdateBasicDataApi({UserName:GetData.BasicName,UserNum:'GD1122'}).then(function(res){
+      await UpdateBasicDataApi({UserName:GetData.BasicName,UserNum:getUserNum}).then(function(res){
         InputVerify.value = !InputVerify.value;
         console.log(res)
       }).catch(function(error){

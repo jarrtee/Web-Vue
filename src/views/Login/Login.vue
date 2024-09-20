@@ -92,11 +92,10 @@ import {
   Lock,
 } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import { ref, reactive } from "vue";
+import { ref, reactive,provide } from "vue";
 import { useRouter } from "vue-router";
 // import axios from 'axios'
 // import $ from 'jquery'
-
 import { getLoginApi } from "@/Api";
 
 export default {
@@ -138,7 +137,8 @@ export default {
             message: "login success",
             type: "success",
           });
-          router.push("/HomePage");
+          //路由跳转,带出登录的工号信息
+          router.push({path:"/HomePage",query: { UserNum_only: Account_inf.Username } });
         } else {
           ElMessage({
             message: "login fail, please try again",

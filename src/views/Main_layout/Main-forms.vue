@@ -10,7 +10,7 @@
           mode="horizontal"
           @select="handleSelect"
           :ellipsis="false"
-          >
+        >
           <el-menu-item index="1" class="menu-item-6">
             <span class="title-label-1"><strong>主页</strong></span>
             <el-icon class="title-icon-1"><HomeFilled /></el-icon>
@@ -68,20 +68,24 @@
             >
               <el-icon><icon-menu /></el-icon>
             </el-button>
-            <TitleMeun v-if="MeunTouch" @mouseenter="MeunsTouch" @mouseleave="MeunTouchLeave" />
+            <TitleMeun
+              v-if="MeunTouch"
+              @mouseenter="MeunsTouch"
+              @mouseleave="MeunTouchLeave"
+            />
           </div>
           <!--创建用户设置按钮-->
           <!--ユーザー設定ボタンの作成-->
           <div class="div-button-2">
-            <el-button class="button-3" @click="Create_account = true" circle >
-              <el-icon><UserFilled /></el-icon>
+            <el-button class="button-3" @click="Create_account = true" circle>
+              <el-icon class="button-3-icon"><UserFilled /></el-icon>
             </el-button>
             <Account_Form v-model="Create_account" />
           </div>
-          <div class="div-button-6">
-            <el-button class="button-6" @click="TEXTPUT" circle>
-              <el-icon><Bicycle /></el-icon>
-            </el-button>
+          <!--获取用户头像/基础信息-->
+          <div class="show-img">  
+            <img :src="GetInf.PhotoUrl" style="position: relative;border: 0.5px solid gray;width: 42px;height: 42px;border-radius: 50%;object-fit: cover;right: 25px">
+            <label style="top: 3px;position: absolute;color:darkslategray;font-size: 11px;width: 70px;right:-5px;height: 42px;line-height:20px ;"><strong>工号: {{GetInf.UserNum}}姓名: {{GetInf.UserName}}</strong></label>
           </div>
           <!--创建设置按钮-->
           <!--設定ボタンの作成-->
@@ -90,6 +94,7 @@
               <el-icon><Setting /></el-icon>
             </el-button>
           </div>
+          <!--图片LOGO-->
           <div class="div-button-4">
             <el-button class="button-5"> </el-button>
           </div>
@@ -186,19 +191,18 @@ import {
   Calendar,
   Money,
 } from "@element-plus/icons-vue";
-import { ref , provide  } from "vue";
+import { ref, provide,onMounted, reactive } from "vue";
 import { useDark, useToggle } from "@vueuse/core";
 import Account_Form from "../../components/Account_Form.vue";
 import { useRoute } from "vue-router";
 import TitleMeun from "../../components/TitleMeun.vue";
 import ERP_Page from "../Main_ButtonPage/ERP_Page.vue";
-import MainPage from '../TitlePage/MainPage.vue';
+import MainPage from "../TitlePage/MainPage.vue";
+import { BasicPhotoApi,BasicInfApi } from "@/Api";
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
-const activeIndex = ref('1');
-
-
+const activeIndex = ref("1");
 
 export default {
   data() {
@@ -252,37 +256,59 @@ export default {
     //创建路由实例   ルーティングインスタンスの作成
     const route = useRoute();
     console.log(route);
-    const MeunTouch = ref(false)
-    provide('MeunTouch',MeunTouch)
-    const MeunisTouched = ref(false)
-    const MeunButton_isTouched = ref(false)
+    const MeunTouch = ref(false);
+    provide("MeunTouch", MeunTouch);
+    const MeunisTouched = ref(false);
+    const MeunButton_isTouched = ref(false);
     //Meun按钮鼠标离开事件  Meunボタンマウス離脱イベント
-    const TouchLeave=()=>{
+    const TouchLeave = () => {
       MeunButton_isTouched.value = false;
-      console.log(MeunButton_isTouched.value)
-      if(MeunButton_isTouched.value == false && MeunisTouched.value == false){
-        MeunTouch.value = !MeunTouch.value
+      console.log(MeunButton_isTouched.value);
+      if (MeunButton_isTouched.value == false && MeunisTouched.value == false) {
+        MeunTouch.value = !MeunTouch.value;
       }
-    }
+    };
     //Meun按钮鼠标进入事件  Meunボタンマウスがイベントに入る
-    const Touch = ()=>{
+    const Touch = () => {
       MeunButton_isTouched.value = true;
-      console.log(MeunButton_isTouched.value)
-      MeunTouch.value = !MeunTouch.value
-    }
+      console.log(MeunButton_isTouched.value);
+      MeunTouch.value = !MeunTouch.value;
+    };
     //Meun菜单鼠标进入事件  Meunメニューマウス入力イベント
-    const MeunsTouch=()=>{
-      MeunTouch.value = true
-    }
+    const MeunsTouch = () => {
+      MeunTouch.value = true;
+    };
     //Meun菜单鼠标离开事件  Meunメニューマウス離脱イベント
-    const MeunTouchLeave=()=>{
-      MeunTouch.value = !MeunTouch.value
-    }
+    const MeunTouchLeave = () => {
+      MeunTouch.value = !MeunTouch.value;
+    };
     //Meun各Page判断变量定义  Meun各Page判定変数定義
-    const MeunSelect = ref('1');
+    const MeunSelect = ref("1");
     // const ERP_button = reactive({button_click: false})
-    provide('MeunSelect',MeunSelect)
+    provide("MeunSelect", MeunSelect);
     // const MES_button = reactive({button_click: false})
+
+    //获取登录的工号
+    const getUserNum = route.query.UserNum_only
+    provide('getUserNum',getUserNum)
+    const GetInf = reactive({
+      PhotoUrl : null,
+      UserNum : null,
+      UserName : null,
+    })
+    const GetPhoto = async()=>{
+      await BasicPhotoApi({ UserNum:getUserNum}).then((res) => {
+        //BLOB二进制转换为URL地址
+        GetInf.PhotoUrl = URL.createObjectURL(new Blob([res.data]),{type:'image/jpeg'});
+      });
+      await BasicInfApi({ UserNum: getUserNum}).then((res)=>{
+        GetInf.UserNum = res.data[0].fields.UserNum;
+        GetInf.UserName = res.data[0].fields.UserName;
+      })
+    }
+    onMounted(() => {
+      GetPhoto();
+    });
 
     return {
       handleSelect,
@@ -295,6 +321,7 @@ export default {
       MeunsTouch,
       MeunTouchLeave,
       MeunSelect,
+      GetInf,
     };
   },
 };
