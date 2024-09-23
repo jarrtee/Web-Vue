@@ -40,21 +40,21 @@
     .button_control{
         position: relative;
         text-align: center;
-        top: 50px;
+        top: 310px;
     }
     .input-1{
         position: relative;
         text-align: center;
-        top: 90px; 
+        top: -10px; 
     }
     .input-2{
         position: relative;
         text-align: center;
-        top: 110px; 
+        top: 10px; 
     }
     .button-forget{
         position: relative;
-        top: 120px; 
+        top: 20px; 
         left: 116px;
         .forget_password:hover{
             background-color: transparent;
@@ -76,7 +76,7 @@
     }
     .button-login{
         position: relative;
-        top: 135px; 
+        top: 50px; 
         left: 120px;
         .login{
             background-color: #59afe9;
@@ -85,6 +85,31 @@
         .login:hover{
             background-color: #458fff;
         }
+    }
+    .demo-tabs{
+      // background-color: black;
+      height: 100%;
+      width: 100%;
+    }
+
+    .QR-CODE{
+      position: relative;
+      left: 385px;
+      top: -25px;
+      background-image: url(@/assets/Photo/扫码.png);
+      background-color: #e7edf1; //图标优化 -- 换为白色线条图标 背景层添加背景色
+      background-position: center;
+      background-size:contain; /* 背景图片自适应按钮大小 */
+      cursor: pointer;
+      .img-qr{
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(225deg,transparent 42px, #e7edf1 0);
+      }
+      .img-qr:hover{
+        background: linear-gradient(225deg,transparent 42px, transparent 0);
+      }
+
     }
   }
   @media (max-width: 1200px) {
@@ -107,3 +132,5 @@
       transform: scale(0.4);
     }
   }
+
+  
