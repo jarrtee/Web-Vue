@@ -7,8 +7,8 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'  
 // import 'element-plus/lib/theme-chalk/index.css';  
-import * as Icons from '@element-plus/icons-vue';  
-// import Antd from 'ant-design-vue'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { DatePicker } from 'ant-design-vue';
 // import 'ant-design-vue/dist/reset.css'
 //引入暗黑模式
 import 'element-plus/theme-chalk/dark/css-vars.css'
@@ -18,10 +18,12 @@ import axios from 'axios'
 
 
 
+
 const app = createApp(Main)
-app.use(router).use(ElementPlus).use(axios).mount('#main')
+app.use(router).use(ElementPlus).use(DatePicker).mount('#main')
+app.config.globalProperties.$http = axios
 
 
-Object.keys(Icons).forEach(key => {  
-    app.component(key, Icons[key]);  
-  });  
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}

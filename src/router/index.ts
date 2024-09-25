@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main_forms from '@/views/Main_layout/Main-forms.vue'
 // import Accountform from '@/components/Account_Form.vue'
 import Login from "@/views/Login/Login.vue";
+import ForumHomePage from '@/views/Forum/ForumHomePage.vue';
 
 
 const router = createRouter({
@@ -24,7 +25,11 @@ const router = createRouter({
       name:"login",
       component: Login,
     },
-  
+    {
+      path:"/Forum",
+      name:"forum",
+      component:ForumHomePage,
+    },
     {
       path: '/forminformation', 
       name: 'forminformation',
