@@ -2,16 +2,30 @@
   <div id="body">
     <div class="main">
       <div class="QR-CODE" @click="QDLogin">
-        <div class="img-qr"></div>
+        <div class="imgqr"></div>
       </div>
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" style="position: relative;top: -65px;">
-        <el-tab-pane label="账号密码登录" name="first" >
+      <el-tabs
+        v-model="activeName"
+        class="demo-tabs"
+        @tab-click="handleClick"
+        style="position: relative; top: -65px"
+      >
+        <el-tab-pane label="账号密码登录" name="first">
           <div class="title">
             <strong>{{ Login_title }}</strong>
           </div>
           <div class="Line-text">
-            <label style="font-size: 12px;position: relative;top: 290px;left: 70px;color: grey;"><strong>———————— 第三方登录 ————————</strong></label>
-            </div>
+            <label
+              style="
+                font-size: 12px;
+                position: relative;
+                top: 290px;
+                left: 70px;
+                color: grey;
+              "
+              ><strong>———————— 第三方登录 ————————</strong></label
+            >
+          </div>
           <div class="button_control">
             <el-button type="primary" circle>
               <el-icon><Edit /></el-icon>
@@ -87,8 +101,7 @@
             >
           </div>
         </el-tab-pane>
-        <el-tab-pane label="手机验证登录" name="second">
-        </el-tab-pane>
+        <el-tab-pane label="手机验证登录" name="second"> </el-tab-pane>
         <el-tab-pane label="二维码登录" name="third" v-if="QRAllow">
         </el-tab-pane>
       </el-tabs>
@@ -106,7 +119,7 @@ import {
   Lock,
 } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import { ref, reactive} from "vue";
+import { ref, reactive ,watchEffect} from "vue";
 import { useRouter } from "vue-router";
 // import axios from 'axios'
 // import $ from 'jquery'
@@ -136,7 +149,8 @@ export default {
     });
     const LoginIn = ref("Login In");
     const router = useRouter();
-    const activeName = ref('first')
+    const activeName = ref("first");
+    const isActive = ref(false);
 
     //登录事件  ログインイベント
     const enterLogin = async () => {
@@ -170,11 +184,22 @@ export default {
     };
 
     //扫码登录
-    const QRAllow = ref(false)
-    const QDLogin=()=>{
-      activeName.value = ref('third')
-    }
-
+    const QRAllow = ref(false);
+    const QDLogin = () => {
+      activeName.value = ref("third");
+      if(isActive.value == false){
+        isActive.value = !isActive.value;
+      }
+    };
+    //监听
+    watchEffect(() => {
+      if(activeName.value == 'first' && isActive.value == true){
+        isActive.value = !isActive.value;
+      }
+      else if(activeName.value == 'second' && isActive.value == true){
+        isActive.value = !isActive.value;
+      }
+    });
 
     return {
       Account_inf,
@@ -185,6 +210,8 @@ export default {
       activeName,
       QDLogin,
       QRAllow,
+      isActive,
+      watchEffect
     };
   },
 };
@@ -192,4 +219,9 @@ export default {
 
 <style lang="less" scoped>
 @import url("../Login/Login.less");
+.imgqr {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(225deg, transparent 42px, v-bind("isActive? 'transparent':'#e7edf1'") 0)
+}
 </style>

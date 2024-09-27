@@ -17,8 +17,6 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import axios from 'axios'
 
 
-
-
 const app = createApp(Main)
 app.use(router).use(ElementPlus).use(DatePicker).mount('#main')
 app.config.globalProperties.$http = axios
