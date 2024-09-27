@@ -81,6 +81,7 @@
               text
               style="font-size: 12px; padding: 8px"
               class="forget_password"
+              @click="ForgetPass"
               ><strong>忘记密码?</strong></el-button
             >
             <el-checkbox
@@ -118,7 +119,7 @@ import {
   UserFilled,
   Lock,
 } from "@element-plus/icons-vue";
-import { ElMessage } from "element-plus";
+import { ElMessage,ElMessageBox} from "element-plus";
 import { ref, reactive ,watchEffect} from "vue";
 import { useRouter } from "vue-router";
 // import axios from 'axios'
@@ -182,6 +183,18 @@ export default {
         console.error(error);
       }
     };
+    //忘记密码
+    const ForgetPass=()=>{
+      ElMessageBox({
+        title:'Notices',
+        message:'是不是忘记密码了?赶紧联系管理员还愣着干嘛?下次自己注意点',//弹窗内容
+        confirmButtonText: '确定', // 确定按钮文本
+        closeOnClickModal: false, // 是否可通过点击遮罩关闭弹框
+        type: 'warning' // 消息类型，用于显示图标
+      }).then(()=>{
+        ElMessage.success('长点记性'); // 用户点击确定后显示的消息
+      })
+    }
 
     //扫码登录
     const QRAllow = ref(false);
@@ -191,15 +204,20 @@ export default {
         isActive.value = !isActive.value;
       }
     };
-    //监听
-    watchEffect(() => {
+    //扫码图标状态更改
+    const QDChange = ()=>{
       if(activeName.value == 'first' && isActive.value == true){
         isActive.value = !isActive.value;
       }
       else if(activeName.value == 'second' && isActive.value == true){
         isActive.value = !isActive.value;
       }
+    }
+    //监听
+    watchEffect(() => {
+      QDChange();
     });
+
 
     return {
       Account_inf,
@@ -211,7 +229,8 @@ export default {
       QDLogin,
       QRAllow,
       isActive,
-      watchEffect
+      watchEffect,
+      ForgetPass,
     };
   },
 };
