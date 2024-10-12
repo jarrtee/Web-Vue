@@ -187,7 +187,7 @@ export default {
     const ForgetPass=()=>{
       ElMessageBox({
         title:'Notices',
-        message:'是不是忘记密码了?赶紧联系管理员还愣着干嘛?下次自己注意点',//弹窗内容
+        message:'是不是忘记密码了?V50改一次密码',//弹窗内容
         confirmButtonText: '确定', // 确定按钮文本
         closeOnClickModal: false, // 是否可通过点击遮罩关闭弹框
         type: 'warning' // 消息类型，用于显示图标
