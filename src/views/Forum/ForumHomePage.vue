@@ -15,17 +15,16 @@
       @click="HomePageClick"
       :style="{
         border: HomePageAppear ? '2px solid white' : 'none',
-        color :HomePageAppear? 'rgb(127,205,0)':'white'
+        color: HomePageAppear ? 'rgb(127,205,0)' : 'white',
       }"
       >首页
-      <el-icon v-if="HomePageAppear == false" style="left: 2px;">
-        <ArrowDown/>
+      <el-icon v-if="HomePageAppear == false" style="left: 2px">
+        <ArrowDown />
       </el-icon>
-      <el-icon v-if="HomePageAppear == true" style="left: 2px;">
-        <ArrowUp/>
+      <el-icon v-if="HomePageAppear == true" style="left: 2px">
+        <ArrowUp />
       </el-icon>
-      </el-button
-    >
+    </el-button>
     <el-button
       text
       plain
@@ -33,17 +32,16 @@
       @click="InformationClick"
       :style="{
         border: InformationAppear ? '2px solid white' : 'none',
-        color :InformationAppear? 'rgb(127,205,0)':'white'
+        color: InformationAppear ? 'rgb(127,205,0)' : 'white',
       }"
       >资讯
-      <el-icon v-if="InformationAppear == false" style="left: 2px;">
-        <ArrowDown/>
+      <el-icon v-if="InformationAppear == false" style="left: 2px">
+        <ArrowDown />
       </el-icon>
-      <el-icon v-if="InformationAppear == true" style="left: 2px;">
-        <ArrowUp/>
+      <el-icon v-if="InformationAppear == true" style="left: 2px">
+        <ArrowUp />
       </el-icon>
-      </el-button
-    >
+    </el-button>
     <el-button
       text
       plain
@@ -51,17 +49,16 @@
       @click="CommunityClick"
       :style="{
         border: CommunityAppear ? '2px solid white' : 'none',
-        color :CommunityAppear? 'rgb(127,205,0)':'white'
+        color: CommunityAppear ? 'rgb(127,205,0)' : 'white',
       }"
       >社区
-      <el-icon v-if="CommunityAppear == false" style="left: 2px;">
-        <ArrowDown/>
+      <el-icon v-if="CommunityAppear == false" style="left: 2px">
+        <ArrowDown />
       </el-icon>
-      <el-icon v-if="CommunityAppear == true" style="left: 2px;">
-        <ArrowUp/>
+      <el-icon v-if="CommunityAppear == true" style="left: 2px">
+        <ArrowUp />
       </el-icon>
-      </el-button
-    >
+    </el-button>
     <el-button
       text
       plain
@@ -69,17 +66,34 @@
       @click="SupportClick"
       :style="{
         border: SupportAppear ? '2px solid white' : 'none',
-        color :SupportAppear? 'rgb(127,205,0)':'white'
+        color: SupportAppear ? 'rgb(127,205,0)' : 'white',
       }"
       >支持
-      <el-icon v-if="SupportAppear == false" style="left: 2px;">
-        <ArrowDown/>
+      <el-icon v-if="SupportAppear == false" style="left: 2px">
+        <ArrowDown />
       </el-icon>
-      <el-icon v-if="SupportAppear == true" style="left: 2px;">
-        <ArrowUp/>
+      <el-icon v-if="SupportAppear == true" style="left: 2px">
+        <ArrowUp />
       </el-icon>
-      </el-button
+    </el-button>
+    <el-button @click="TopicChangeClick" circle class="TopicChangeButton">
+      <el-icon style="font-size: 20px; color: whitesmoke">
+        <Search />
+      </el-icon>
+    </el-button>
+    <el-dialog
+      v-model="TopicChange"
+      width="500"
+      :close-on-press-escape="true"
+      :show-close="false"
     >
+      <el-autocomplete
+        v-model="Searching"
+        :clearable="true"
+        :hide-loading="true"
+      >
+      </el-autocomplete>
+    </el-dialog>
   </div>
   <div
     :style="{
@@ -94,16 +108,17 @@
 </template>
 
 <script>
-import {ArrowDown,ArrowUp} from "@element-plus/icons-vue";
+import { ArrowDown, ArrowUp, Search } from "@element-plus/icons-vue";
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 // import { useEventListener } from "./event";
 export default {
   data() {
     return {};
   },
-  components:{
+  components: {
     ArrowDown,
-    ArrowUp
+    ArrowUp,
+    Search,
   },
   setup() {
     //鼠标追踪,获取坐标值
@@ -160,6 +175,16 @@ export default {
 
     // 实时监控
     watchEffect(() => {});
+
+    //主题切换
+    const TopicChange = ref(false);
+    const TopicChangeClick = () => {
+      TopicChange.value = !TopicChange.value;
+    };
+
+    //搜索
+    const Searching = ref("");
+
     return {
       x,
       y,
@@ -170,7 +195,10 @@ export default {
       CommunityAppear,
       CommunityClick,
       SupportAppear,
-      SupportClick
+      SupportClick,
+      TopicChange,
+      TopicChangeClick,
+      Searching,
     };
   },
 };
