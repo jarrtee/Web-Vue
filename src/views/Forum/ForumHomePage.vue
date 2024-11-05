@@ -2,12 +2,12 @@
   <div
     :style="{
       background: 'rgb(79,79,79)',
-      padding: '8px 10px',
       height: '60px',
-      opacity: 0.95,
+      opacity: 0.98,
     }"
     class="topEara"
   >
+    <el-button class="TitlePhoto" />
     <el-button
       text
       plain
@@ -17,11 +17,11 @@
         border: HomePageAppear ? '2px solid white' : 'none',
         color: HomePageAppear ? 'rgb(127,205,0)' : 'white',
       }"
-      >首页
-      <el-icon v-if="HomePageAppear == false" style="left: 2px">
+      ><label style="position: relative; top: 4px; cursor: pointer">首页</label>
+      <el-icon v-if="HomePageAppear == false" style="left: 2px; width: 12px">
         <ArrowDown />
       </el-icon>
-      <el-icon v-if="HomePageAppear == true" style="left: 2px">
+      <el-icon v-if="HomePageAppear == true" style="left: 2px; width: 12px">
         <ArrowUp />
       </el-icon>
     </el-button>
@@ -34,11 +34,11 @@
         border: InformationAppear ? '2px solid white' : 'none',
         color: InformationAppear ? 'rgb(127,205,0)' : 'white',
       }"
-      >资讯
-      <el-icon v-if="InformationAppear == false" style="left: 2px">
+      ><label style="position: relative; top: 4px; cursor: pointer">资讯</label>
+      <el-icon v-if="InformationAppear == false" style="left: 2px; width: 12px">
         <ArrowDown />
       </el-icon>
-      <el-icon v-if="InformationAppear == true" style="left: 2px">
+      <el-icon v-if="InformationAppear == true" style="left: 2px; width: 12px">
         <ArrowUp />
       </el-icon>
     </el-button>
@@ -51,11 +51,11 @@
         border: CommunityAppear ? '2px solid white' : 'none',
         color: CommunityAppear ? 'rgb(127,205,0)' : 'white',
       }"
-      >社区
-      <el-icon v-if="CommunityAppear == false" style="left: 2px">
+      ><label style="position: relative; top: 4px; cursor: pointer">社区</label>
+      <el-icon v-if="CommunityAppear == false" style="left: 2px; width: 12px">
         <ArrowDown />
       </el-icon>
-      <el-icon v-if="CommunityAppear == true" style="left: 2px">
+      <el-icon v-if="CommunityAppear == true" style="left: 2px; width: 12px">
         <ArrowUp />
       </el-icon>
     </el-button>
@@ -68,11 +68,11 @@
         border: SupportAppear ? '2px solid white' : 'none',
         color: SupportAppear ? 'rgb(127,205,0)' : 'white',
       }"
-      >支持
-      <el-icon v-if="SupportAppear == false" style="left: 2px">
+      ><label style="position: relative; top: 4px; cursor: pointer">支持</label>
+      <el-icon v-if="SupportAppear == false" style="left: 2px; width: 12px">
         <ArrowDown />
       </el-icon>
-      <el-icon v-if="SupportAppear == true" style="left: 2px">
+      <el-icon v-if="SupportAppear == true" style="left: 2px; width: 12px">
         <ArrowUp />
       </el-icon>
     </el-button>
@@ -94,16 +94,25 @@
       >
       </el-autocomplete>
     </el-dialog>
+    <transition name="fade">
+      <div class="TopicOne" v-if="DropDownMeun"></div>
+    </transition>
   </div>
+
   <div
     :style="{
-      background: 'rgb(180, 200, 152)',
+      background: 'rgb(28, 28, 28)',
       padding: '16px 16px',
       height: '1200px',
     }"
+    @click="OutTopicTwo"
+    class="buttomEara"
   >
-    <span>实时位置检测</span>
-    <span>position:{{ x }},{{ y }}</span>
+    <el-carousel :interval="4000" type="card" height="360px">
+      <el-carousel-item v-for="item in 6" :key="item">
+        <h3 text="2xl" justify="center">{{ item }}</h3>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
@@ -149,28 +158,100 @@ export default {
     };
     const { x, y } = useMouse();
 
+    //title
+    const DropDownMeun = ref(false);
     //首页按钮
     const HomePageAppear = ref(false);
     const HomePageClick = () => {
-      HomePageAppear.value = !HomePageAppear.value;
+      if (DropDownMeun.value) {
+        if (HomePageAppear.value) {
+          DropDownMeun.value = !DropDownMeun.value;
+          HomePageAppear.value = !HomePageAppear.value;
+        } else {
+          HomePageAppear.value = !HomePageAppear.value;
+          const list = [InformationAppear, CommunityAppear, SupportAppear];
+          list.forEach((list) => {
+            list.value = false;
+          });
+        }
+      } else {
+        DropDownMeun.value = !DropDownMeun.value;
+        HomePageAppear.value = !HomePageAppear.value;
+      }
     };
 
     //资讯按钮
     const InformationAppear = ref(false);
     const InformationClick = () => {
-      InformationAppear.value = !InformationAppear.value;
+      if (DropDownMeun.value) {
+        if (InformationAppear.value) {
+          DropDownMeun.value = !DropDownMeun.value;
+          InformationAppear.value = !InformationAppear.value;
+        } else {
+          InformationAppear.value = !InformationAppear.value;
+          const list = [HomePageAppear, CommunityAppear, SupportAppear];
+          list.forEach((list) => {
+            list.value = false;
+          });
+        }
+      } else {
+        DropDownMeun.value = !DropDownMeun.value;
+        InformationAppear.value = !InformationAppear.value;
+      }
     };
 
     //社区按钮
     const CommunityAppear = ref(false);
     const CommunityClick = () => {
-      CommunityAppear.value = !CommunityAppear.value;
+      if (DropDownMeun.value) {
+        if (CommunityAppear.value) {
+          DropDownMeun.value = !DropDownMeun.value;
+          CommunityAppear.value = !CommunityAppear.value;
+        } else {
+          CommunityAppear.value = !CommunityAppear.value;
+          const list = [InformationAppear, HomePageAppear, SupportAppear];
+          list.forEach((list) => {
+            list.value = false;
+          });
+        }
+      } else {
+        DropDownMeun.value = !DropDownMeun.value;
+        CommunityAppear.value = !CommunityAppear.value;
+      }
     };
 
     //支持按钮
     const SupportAppear = ref(false);
     const SupportClick = () => {
-      SupportAppear.value = !SupportAppear.value;
+      if (DropDownMeun.value) {
+        if (SupportAppear.value) {
+          DropDownMeun.value = !DropDownMeun.value;
+          SupportAppear.value = !SupportAppear.value;
+        } else {
+          SupportAppear.value = !SupportAppear.value;
+          CommunityAppear.value = !CommunityAppear.value;
+          const list = [InformationAppear, HomePageAppear, CommunityAppear];
+          list.forEach((list) => {
+            list.value = false;
+          });
+        }
+      } else {
+        DropDownMeun.value = !DropDownMeun.value;
+        SupportAppear.value = !SupportAppear.value;
+      }
+    };
+    //div外Topic隐藏
+    const OutTopicTwo = () => {
+      const list = [
+        SupportAppear,
+        InformationAppear,
+        CommunityAppear,
+        HomePageAppear,
+        DropDownMeun,
+      ];
+      list.forEach((item) => {
+        item.value = false;
+      });
     };
 
     // 实时监控
@@ -199,6 +280,8 @@ export default {
       TopicChange,
       TopicChangeClick,
       Searching,
+      DropDownMeun,
+      OutTopicTwo,
     };
   },
 };

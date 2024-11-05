@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'pixel-font8px'; 
+    src: url('fusion-pixel-8px-monospaced-zh_hant.otf') format('truetype'); 
+  }
+  
+@font-face {
+    font-family: 'pixel-font-Silver'; 
+    src: url('Silver.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+ }

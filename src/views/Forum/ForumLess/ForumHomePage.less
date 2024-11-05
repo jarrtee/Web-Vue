@@ -3,19 +3,37 @@
     position: sticky;
     z-index: 900;
     top: 0px;
+    overflow:hidden;
 
+
+    //Photo
+    .TitlePhoto{
+      position: absolute;
+      width: 300px;
+      height: 60px;
+      left: 80px;
+      border: none;
+      background-color: transparent;
+      background-size: cover; /* 背景图片自适应按钮大小 */
+      background-position: center; /* 背景图片居中 */
+      border: none;
+      background-image: url('@/assets/Photo/MC.png');
+      cursor: auto;//触碰时不变成手
+    }
     //首页
     .HomePageButton{
       position: relative;
       width: 60px;
       height: 40px;
       top: 10px;
-      left: 760px;
+      left: 750px;
       background-color: transparent;
       font-weight: bolder;
       transition: color 1s,border 1s;
       color: white;
-      //border: 2px solid;   
+      font-family: pixel-font-Silver;
+      font-size: 20px;
+
     }
     .HomePageButton:hover{
       color: white;
@@ -34,11 +52,13 @@
       width: 60px;
       height: 40px;
       top: 10px;
-      left: 770px;
+      left: 760px;
       background-color: transparent;
       font-weight: bolder;
       transition: color 1s,border 1s;
       color: white;
+      font-family: pixel-font-Silver;
+      font-size: 20px;
       //border: 2px solid;   
     }
     .InformationButton:hover{
@@ -58,11 +78,13 @@
       width: 60px;
       height: 40px;
       top: 10px;
-      left: 780px;
+      left: 770px;
       background-color: transparent;
       font-weight: bolder;
       transition: color 1s,border 1s;
       color: white;
+      font-family: pixel-font-Silver;
+      font-size: 20px;
       //border: 2px solid;   
     }
     .CommunityButton:hover{
@@ -82,11 +104,13 @@
       width: 60px;
       height: 40px;
       top: 10px;
-      left: 790px;
+      left: 780px;
       background-color: transparent;
       font-weight: bolder;
       transition: color 1s,border 1s;
       color: white;
+      font-family: pixel-font-Silver;
+      font-size: 20px;
       //border: 2px solid;   
     }
     .SupportButton:hover{
@@ -114,4 +138,39 @@
       transform: scale(1.1); /* 图标放大动画 */
     }
 
+    .TopicOne{
+      position: relative;
+      background: rgb(54,54,54);
+      height:500px;
+      top:20px;
+    }
+    .fade-enter-active,.fade-leave-active {
+      transition: opacity 1s ease;
+    }
+    .fade-enter-from,.fade-leave-to{
+      opacity: 0;
+    }
+
+  }
+
+  .buttomEara{
+    overflow:hidden;
+
+
+    //走马灯
+    .el-carousel__item h3 {
+      color: transparent;
+      opacity: 0.75;
+      line-height: 200px;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .el-carousel__item:nth-child(2n) {
+      background-color: #6d6d6d;
+    }
+    
+    .el-carousel__item:nth-child(2n + 1) {
+      background-color: #454647;
+    }
   }

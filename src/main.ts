@@ -15,6 +15,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 //条码
 // import VueBarcode from 'vue3-barcode';
 import axios from 'axios'
+import './assets/font/font.css'//引用字体
 
 
 const app = createApp(Main)
