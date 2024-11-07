@@ -109,16 +109,22 @@
     class="buttomEara"
   >
     <img class="showCarouselPhoto" :src="CarouselItem" />
-    <div class="Carousel-line" > 
-      <el-button class="Carousel-line_button">
-        
-      </el-button>
-    <el-carousel :interval="8000" type="card" height="100px" motion-blur="true" ref="carouselRef">
-      <el-carousel-item v-for="item in Carousel" :key="item.id" >
-        <!-- <h3 text="2xl" justify="center">{{ item }}</h3> -->
-        <img :src="item.idView" class="Carousel-image" />
-      </el-carousel-item>
-    </el-carousel>
+    <div class="Carousel-line">
+      <el-button class="Carousel-line_buttonOne"> </el-button>
+      <el-button class="Carousel-line_buttonTwo"> </el-button>
+      <el-button class="Carousel-line_buttonThree"> </el-button>
+      <el-carousel
+        :interval="8000"
+        type="card"
+        height="100px"
+        motion-blur="true"
+        ref="carouselRef"
+      >
+        <el-carousel-item v-for="item in Carousel" :key="item.id">
+          <!-- <h3 text="2xl" justify="center">{{ item }}</h3> -->
+          <img :src="item.idView" class="Carousel-image" />
+        </el-carousel-item>
+      </el-carousel>
     </div>
   </div>
 </template>
@@ -165,8 +171,7 @@ export default {
     ArrowUp,
     Search,
   },
-  methods:{
-  },
+  methods: {},
   setup() {
     //鼠标追踪,获取坐标值
     const useMouse = () => {
@@ -196,8 +201,8 @@ export default {
     };
     const { x, y } = useMouse();
     //变量定义
-    const carouselRef = ref('')
-    const CarouselItem = ref(null)
+    const carouselRef = ref("");
+    const CarouselItem = ref(null);
 
     //title
     const DropDownMeun = ref(false);
@@ -296,42 +301,42 @@ export default {
     };
     //img赋值
     const Carousel = [
-        {
-          id: 0,
-          idView: new URL("@/assets/Carousel/MC-1.png", import.meta.url).href,
-        },
-        {
-          id: 1,
-          idView: new URL("@/assets/Carousel/MC-2.png", import.meta.url).href,
-        },
-        {
-          id: 2,
-          idView: new URL("@/assets/Carousel/MC-3.png", import.meta.url).href,
-        },
-        {
-          id: 3,
-          idView: new URL("@/assets/Carousel/MC-4.png", import.meta.url).href,
-        },
-        {
-          id: 4,
-          idView: new URL("@/assets/Carousel/MC-5.png", import.meta.url).href,
-        },
-        {
-          id: 5,
-          idView: new URL("@/assets/Carousel/MC-6.png", import.meta.url).href,
-        },
-      ]
-    const ImgSynchronous=()=>{
-      Carousel.forEach((item)=>{
-        if(carouselRef.value.activeIndex == item.id){
-        CarouselItem.value = item.idView
-      }
-      })
-    }
+      {
+        id: 0,
+        idView: new URL("@/assets/Carousel/MC-1.png", import.meta.url).href,
+      },
+      {
+        id: 1,
+        idView: new URL("@/assets/Carousel/MC-2.png", import.meta.url).href,
+      },
+      {
+        id: 2,
+        idView: new URL("@/assets/Carousel/MC-3.png", import.meta.url).href,
+      },
+      {
+        id: 3,
+        idView: new URL("@/assets/Carousel/MC-4.png", import.meta.url).href,
+      },
+      {
+        id: 4,
+        idView: new URL("@/assets/Carousel/MC-5.png", import.meta.url).href,
+      },
+      {
+        id: 5,
+        idView: new URL("@/assets/Carousel/MC-6.png", import.meta.url).href,
+      },
+    ];
+    const ImgSynchronous = () => {
+      Carousel.forEach((item) => {
+        if (carouselRef.value.activeIndex == item.id) {
+          CarouselItem.value = item.idView;
+        }
+      });
+    };
 
     // 实时监控
     watchEffect(() => {
-      ImgSynchronous()
+      ImgSynchronous();
     });
 
     //主题切换

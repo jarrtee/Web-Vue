@@ -156,7 +156,7 @@
     overflow:hidden;
 
     .Carousel-line{
-      background-color: white;
+      //background-color: white;
       top: 5px;
       position: relative;
 
@@ -193,19 +193,51 @@
       }
 
       //line Button修饰
-      .Carousel-line_button{
+      .Carousel-line_buttonOne{
         position: absolute;
-        background-color: black;
+        background-color: transparent;
         width: 100px;
-        height: 88px;
-        left: 500px;
+        height: 100px;
+        right: 50px;
+        background-image: url("@/assets/Material/grass.png");
+        background-position: center;
+        background-size: cover;
+        border: none;
+        cursor: auto;
+      }
+      .Carousel-line_buttonTwo{
+        position: absolute;
+        background-color: transparent;
+        width: 100px;
+        height: 100px;
+        background-image: url("@/assets/Material/flower.gif");
+        background-position: center;
+        background-size: cover;
+        border: none;
+        cursor: auto;
+        top: 20px;
+      }
+      .Carousel-line_buttonThree{
+        position: absolute;
+        background-color: transparent;
+        width: 100px;
+        height: 100px;
+        right: 600px;
+        background-image: url("@/assets/Material/flower.gif");
+        background-position: center;
+        background-size: cover;
+        border: none;
+        transform: scaleX(-1);//实现img的镜像
+        cursor: auto;
+        top: 20px;
       }
     }
 
     .showCarouselPhoto{
       position: relative;
-      background-color: white;
+      //background-color: white;
       width: 100%;
       height: 600px;
+      
     }
   }
