@@ -3,7 +3,6 @@
     position: sticky;
     z-index: 900;
     top: 0px;
-    overflow:hidden;
 
 
     //Photo
@@ -156,21 +155,57 @@
   .buttomEara{
     overflow:hidden;
 
+    .Carousel-line{
+      background-color: white;
+      top: 5px;
+      position: relative;
 
-    //走马灯
-    .el-carousel__item h3 {
-      color: transparent;
-      opacity: 0.75;
-      line-height: 200px;
-      margin: 0;
-      text-align: center;
+      //走马灯
+      // :deep() -> 深度选择器(可使样式深入到子组件)
+      .el-carousel{
+        position: relative;
+        width: 400px;
+        left: 1280px;
+      }
+      :deep(.el-carousel__button) {
+        width: 8px;
+        border-radius: 50%;
+        padding: 4px 2px;
+      }
+      :deep(.el-carousel__indicator--horizontal){
+        padding: 6px;
+      }
+      :deep(.el-carousel__container){
+        width: 400px;
+      }
+      :deep(.el_carousel_item){
+        width: 400px;
+      }
+      .el-carousel__item img{
+        width: 100%;
+        height:inherit;// inherit继承父类的高度
+      }
+      .el-carousel__item:nth-child(2n) {
+        background-color: #6d6d6d;
+      }
+      .el-carousel__item:nth-child(2n + 1) {
+        background-color: #454647;
+      }
+
+      //line Button修饰
+      .Carousel-line_button{
+        position: absolute;
+        background-color: black;
+        width: 100px;
+        height: 88px;
+        left: 500px;
+      }
     }
-    
-    .el-carousel__item:nth-child(2n) {
-      background-color: #6d6d6d;
-    }
-    
-    .el-carousel__item:nth-child(2n + 1) {
-      background-color: #454647;
+
+    .showCarouselPhoto{
+      position: relative;
+      background-color: white;
+      width: 100%;
+      height: 600px;
     }
   }

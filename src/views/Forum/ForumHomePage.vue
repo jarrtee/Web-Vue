@@ -102,17 +102,24 @@
   <div
     :style="{
       background: 'rgb(28, 28, 28)',
-      padding: '16px 16px',
+      padding: '8px',
       height: '1200px',
     }"
     @click="OutTopicTwo"
     class="buttomEara"
   >
-    <el-carousel :interval="4000" type="card" height="360px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <h3 text="2xl" justify="center">{{ item }}</h3>
+    <img class="showCarouselPhoto" :src="CarouselItem" />
+    <div class="Carousel-line" > 
+      <el-button class="Carousel-line_button">
+        
+      </el-button>
+    <el-carousel :interval="8000" type="card" height="100px" motion-blur="true" ref="carouselRef">
+      <el-carousel-item v-for="item in Carousel" :key="item.id" >
+        <!-- <h3 text="2xl" justify="center">{{ item }}</h3> -->
+        <img :src="item.idView" class="Carousel-image" />
       </el-carousel-item>
     </el-carousel>
+    </div>
   </div>
 </template>
 
@@ -120,14 +127,45 @@
 import { ArrowDown, ArrowUp, Search } from "@element-plus/icons-vue";
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 // import { useEventListener } from "./event";
+
 export default {
   data() {
-    return {};
+    return {
+      //走马灯图片导入
+      Carousel: [
+        {
+          id: 0,
+          idView: new URL("@/assets/Carousel/MC-1.png", import.meta.url).href,
+        },
+        {
+          id: 1,
+          idView: new URL("@/assets/Carousel/MC-2.png", import.meta.url).href,
+        },
+        {
+          id: 2,
+          idView: new URL("@/assets/Carousel/MC-3.png", import.meta.url).href,
+        },
+        {
+          id: 3,
+          idView: new URL("@/assets/Carousel/MC-4.png", import.meta.url).href,
+        },
+        {
+          id: 4,
+          idView: new URL("@/assets/Carousel/MC-5.png", import.meta.url).href,
+        },
+        {
+          id: 5,
+          idView: new URL("@/assets/Carousel/MC-6.png", import.meta.url).href,
+        },
+      ],
+    };
   },
   components: {
     ArrowDown,
     ArrowUp,
     Search,
+  },
+  methods:{
   },
   setup() {
     //鼠标追踪,获取坐标值
@@ -157,6 +195,9 @@ export default {
       return { x, y };
     };
     const { x, y } = useMouse();
+    //变量定义
+    const carouselRef = ref('')
+    const CarouselItem = ref(null)
 
     //title
     const DropDownMeun = ref(false);
@@ -253,9 +294,45 @@ export default {
         item.value = false;
       });
     };
+    //img赋值
+    const Carousel = [
+        {
+          id: 0,
+          idView: new URL("@/assets/Carousel/MC-1.png", import.meta.url).href,
+        },
+        {
+          id: 1,
+          idView: new URL("@/assets/Carousel/MC-2.png", import.meta.url).href,
+        },
+        {
+          id: 2,
+          idView: new URL("@/assets/Carousel/MC-3.png", import.meta.url).href,
+        },
+        {
+          id: 3,
+          idView: new URL("@/assets/Carousel/MC-4.png", import.meta.url).href,
+        },
+        {
+          id: 4,
+          idView: new URL("@/assets/Carousel/MC-5.png", import.meta.url).href,
+        },
+        {
+          id: 5,
+          idView: new URL("@/assets/Carousel/MC-6.png", import.meta.url).href,
+        },
+      ]
+    const ImgSynchronous=()=>{
+      Carousel.forEach((item)=>{
+        if(carouselRef.value.activeIndex == item.id){
+        CarouselItem.value = item.idView
+      }
+      })
+    }
 
     // 实时监控
-    watchEffect(() => {});
+    watchEffect(() => {
+      ImgSynchronous()
+    });
 
     //主题切换
     const TopicChange = ref(false);
@@ -267,6 +344,8 @@ export default {
     const Searching = ref("");
 
     return {
+      carouselRef,
+      CarouselItem,
       x,
       y,
       HomePageClick,
