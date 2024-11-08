@@ -111,7 +111,8 @@
     <img class="showCarouselPhoto" :src="CarouselItem" />
     <div class="Carousel-line">
       <el-button class="Carousel-line_buttonOne"> </el-button>
-      <el-button class="Carousel-line_buttonTwo"> </el-button>
+      <el-button class="Carousel-line_buttonTwo" :style="buttonTwo_style">
+      </el-button>
       <el-button class="Carousel-line_buttonThree"> </el-button>
       <el-carousel
         :interval="8000"
@@ -131,7 +132,7 @@
 
 <script>
 import { ArrowDown, ArrowUp, Search } from "@element-plus/icons-vue";
-import { ref, onMounted, onUnmounted, watchEffect } from "vue";
+import { ref, watchEffect,computed } from "vue";
 // import { useEventListener } from "./event";
 
 export default {
@@ -174,35 +175,52 @@ export default {
   methods: {},
   setup() {
     //鼠标追踪,获取坐标值
-    const useMouse = () => {
-      // 被组合式函数封装和管理的状态
-      const x = ref(0);
-      const y = ref(0);
+    // const useMouse = () => {
+    //   // 被组合式函数封装和管理的状态
+    //   const x   = ref(0);
+    //   const y = ref(0);
 
-      // 组合式函数可以随时更改其状态。
-      function update(event) {
-        x.value = event.pageX;
-        y.value = event.pageY;
-      }
+    //   // 组合式函数可以随时更改其状态。
+    //   function update(event) {
+    //     x.value = event.pageX;
+    //     y.value = event.pageY;
+    //   }
 
-      // 一个组合式函数也可以挂靠在所属组件的生命周期上
-      // 来启动和卸载副作用
-      onMounted(() => window.addEventListener("mousemove", update));
-      onUnmounted(() => window.removeEventListener("mousemove", update));
+    //   // 一个组合式函数也可以挂靠在所属组件的生命周期上
+    //   // 来启动和卸载副作用
+    //   onMounted(() => window.addEventListener("mousemove", update));
+    //   onUnmounted(() => window.removeEventListener("mousemove", update));
 
-      //useEventListener简化组合函数
-      //   useEventListener(window, "mousemove", (event) => {
-      //     x.value = event.pageX;
-      //     y.value = event.pageY;
-      //   });
+    //   //useEventListener简化组合函数
+    //   //   useEventListener(window, "mousemove", (event) => {
+    //   //     x.value = event.pageX;
+    //   //     y.value = event.pageY;
+    //   //   });
 
-      // 通过返回值暴露所管理的状态
-      return { x, y };
-    };
-    const { x, y } = useMouse();
+    //   // 通过返回值暴露所管理的状态
+    //   return { x, y };
+    // };
+    //const { x, y } = useMouse();
+
     //变量定义
     const carouselRef = ref("");
     const CarouselItem = ref(null);
+    const position = ref({ x: 0});
+    //定时器
+    setInterval(() => {
+      position.value.x += 10;
+    }, 500);
+    //计算属性用于生成样式对象
+    const buttonTwo_style = computed(() => ({
+      position: "absolute",
+      left: `${position.value.x}px`,
+    }));
+    //重置初始位置
+    const buttonTwo_position =()=>{
+      if(position.value.x == 1000){
+        position.value.x = 0
+      }
+    }
 
     //title
     const DropDownMeun = ref(false);
@@ -337,6 +355,7 @@ export default {
     // 实时监控
     watchEffect(() => {
       ImgSynchronous();
+      buttonTwo_position();
     });
 
     //主题切换
@@ -351,8 +370,8 @@ export default {
     return {
       carouselRef,
       CarouselItem,
-      x,
-      y,
+      buttonTwo_style,
+      position,
       HomePageClick,
       HomePageAppear,
       InformationClick,
