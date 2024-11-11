@@ -101,7 +101,7 @@
 
   <div
     :style="{
-      background: 'rgb(28, 28, 28)',
+      background: 'rgb(40, 40, 40)',
       padding: '8px',
       height: '1200px',
     }"
@@ -208,8 +208,8 @@ export default {
     const position = ref({ x: 0});
     //定时器
     setInterval(() => {
-      position.value.x += 10;
-    }, 500);
+      position.value.x += 1;
+    }, 100);
     //计算属性用于生成样式对象
     const buttonTwo_style = computed(() => ({
       position: "absolute",
