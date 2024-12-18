@@ -162,6 +162,7 @@ export default {
         },
         {
           id: 5,
+          
           idView: new URL("@/assets/Carousel/MC-6.png", import.meta.url).href,
         },
       ],

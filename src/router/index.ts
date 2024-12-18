@@ -3,7 +3,7 @@ import Main_forms from '@/views/Main_layout/Main-forms.vue'
 // import Accountform from '@/components/Account_Form.vue'
 import Login from "@/views/Login/Login.vue";
 import ForumHomePage from '@/views/Forum/ForumHomePage.vue';
-
+import gantt from '@/views/gantt.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +29,11 @@ const router = createRouter({
       path:"/Forum",
       name:"forum",
       component:ForumHomePage,
+    },
+    {
+      path:"/gantt",
+      name:"gantt",
+      component:gantt,
     },
     {
       path: '/forminformation', 

@@ -1,5 +1,9 @@
 {
-  "files": [],
+  "files": [
+  ],
+  "include": [
+    //"src/Types/wl-gantt.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
